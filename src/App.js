@@ -5,6 +5,7 @@ import Signup from './signup.js';
 import Login from './login.js';
 import Home from './home.js';
 import Post from './post.js';
+import Content from './content.js';
 
 class App extends Component {
 	
@@ -20,6 +21,8 @@ class App extends Component {
 	  <Home /> < br />
 	  
 	  <br />
+	  
+	  <Content />
       </div>
     );
   }
