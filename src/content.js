@@ -28,6 +28,8 @@ class Content extends Component
 }
 
 
+
+
 function renderContent(doc)
 {
 	
@@ -46,6 +48,13 @@ const content = document.querySelector('#main-content');
 	let form = 	document.createElement('form');
 	let input = document.createElement('input');
 	input.setAttribute("type", "text");
+	input.setAttribute("id", "ic");
+	form.addEventListener("submit", function(e) { e.preventDefault(); var input_string= e.target.ic.value ; console.log(input_string); e.target.ic.value=""; 
+
+		//to_do
+		});
+
+	});
 	
 	let button = document.createElement('button');
 	button.setAttribute("type", "submit");

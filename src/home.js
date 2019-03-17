@@ -65,7 +65,8 @@ class Home extends Component
 			
 			db.collection('Insta').add({
 			description: this.state.description,
-			imageURL: url
+			imageURL: url,
+			comment :[]
 
 		});
 			
