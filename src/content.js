@@ -51,10 +51,14 @@ const content = document.querySelector('#main-content');
 	input.setAttribute("id", "ic");
 	form.addEventListener("submit", function(e) { e.preventDefault(); var input_string= e.target.ic.value ; console.log(input_string); e.target.ic.value=""; 
 
-		//to_do
+		db.collection('Insta').doc(doc.id).collection('Comments').add(
+		{
+				comments: input_string
+		}
+		)
 		});
 
-	});
+
 	
 	let button = document.createElement('button');
 	button.setAttribute("type", "submit");
