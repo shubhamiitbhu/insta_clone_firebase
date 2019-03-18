@@ -16,6 +16,20 @@ class Login extends Component
 		username: '',
 		password: '',
 	}
+	
+	
+	firebase.auth().onAuthStateChanged(user => {
+	if(user)
+	{
+		console.log("User LoggedIn");
+	}
+	else
+	{
+		console.log("User SignedOut");
+	}
+});
+
+	
 	}
 	
    
@@ -36,12 +50,7 @@ class Login extends Component
 	
 	
 	
-	loguserout = (e) =>
-	{	
-	e.preventDefault();
-		firebase.auth().signOut();
-		
-	}
+	
 	
 	render()
 	{
@@ -55,9 +64,6 @@ class Login extends Component
 			  <button type="submit"> Login</button>
 			  </form>
 			  
-			  <form id="logout-form" onSubmit = {this.loguserout} >
-			  <button type="submit"> Logout</button>
-			  </form>
 			  
 			  
 			  </div>
@@ -68,15 +74,5 @@ class Login extends Component
 }
 
 
-firebase.auth().onAuthStateChanged(user => {
-	if(user)
-	{
-		console.log("User LoggedIn");
-	}
-	else
-	{
-		console.log("User SignedOut");
-	}
-});
 
 export default Login ;

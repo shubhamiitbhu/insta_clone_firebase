@@ -8,6 +8,9 @@ import 'firebase/storage' ;
 
 const db = firebase.firestore();
 const storage = firebase.storage();
+const auth = firebase.auth();
+
+
 
 class Home extends Component
 {
@@ -21,6 +24,7 @@ class Home extends Component
 			description: '',
 			
 		}
+		
 		
 		
 	}
@@ -91,10 +95,13 @@ class Home extends Component
 	
 	
 	
+	
+	
+	
 	render()
 	{
 		return(
-		<div>
+		<div id="form-modal">
 		<form id="file-form" onSubmit = {this.submitFile} >
 		<input type="file" id="file"  onChange= {this.filechange}/>
 		
@@ -111,5 +118,12 @@ class Home extends Component
 		)
 	}
 }
+
+
+
+
+
+
+
 
 export default Home;
