@@ -7,6 +7,33 @@ img
 {
 	border: 12px solid #E8E8E8;
 	height: 340px;
-  width: 28%;
+  width: 340px;
   border-radius: 8px;
 }
+a
+{
+	color: black;
+	padding: 10px;
+}
+a:hover
+{
+	color:black;
+	background-color: #e6ffcc;
+	border-radius: 10px;
+	
+}
+
+
+.active {
+	background-color: #e6ffcc;
+	border-radius: 10px;
+}
+
+#displayname
+{
+	color: blue;
+	display: inline;
+}
+
+
+

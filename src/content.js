@@ -19,8 +19,8 @@ class Content extends Component
 		auth.onAuthStateChanged(user =>{
 	
 
-	if(user) {
-		
+	if(user != null) {
+		console.log("signin");
 		db.collection('Insta').onSnapshot(snapshot =>
 {
 	let changes = snapshot.docChanges();
@@ -29,20 +29,17 @@ class Content extends Component
 		{
 		renderContent(doc.doc);
 		}
+		
 	})
+	
 }
 );
  
 
 	}
+	
 
 
-else
-{
-	
-	renderContent();
-	
-}	
 		
 	});
 
@@ -61,8 +58,15 @@ const content = document.querySelector('#main-content');
 	let localdiv = document.createElement('div');
 	localdiv.setAttribute("id", doc.id);
 	localdiv.setAttribute("class", "localdiv" );
+	let displayname = document.createElement('span');
+	displayname.setAttribute("id", "displayname");
+	displayname.textContent = doc.data().username;
+	let emaildisplay = document.createElement('span');
+	emaildisplay.setAttribute("id", "emaildisplay");
+	emaildisplay.textContent = doc.data().email;
+
 	let description = document.createElement('div');
-	description.setAttribute("id", doc.data().description.id);
+	description.setAttribute("id", "descript");
 	description.textContent = doc.data().description;
 	let img = document.createElement('IMG');
 	img.setAttribute("src", doc.data().imageURL);
@@ -77,7 +81,8 @@ const content = document.querySelector('#main-content');
 
 		db.collection('Insta').doc(doc.id).collection('Comments').add(
 		{
-				comments: input_string
+				comments: input_string,
+				commented_by: auth.currentUser.displayName
 		}
 		)
 		});
@@ -101,12 +106,13 @@ const content = document.querySelector('#main-content');
 		changes.forEach(doc=> {
 			if(doc.type=="added")
 			{
-			comment_section.innerHTML += '<div>' + doc.doc.data().comments + '</div><hr />';
+			comment_section.innerHTML += '<div id="text_comm">' + '<span id="commentor">' + doc.doc.data().commented_by + ': </span>' +  doc.doc.data().comments + '</div>';
 			}
 		})
 	});
 	
-	
+	localdiv.appendChild(displayname);
+	localdiv.appendChild(emaildisplay);
 	localdiv.appendChild(description);
 	localdiv.appendChild(img);
 	localdiv.appendChild(form);

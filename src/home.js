@@ -27,6 +27,8 @@ class Home extends Component
 		
 		
 		
+		
+		
 	}
 	
 	submitFile = (e) =>
@@ -70,7 +72,8 @@ class Home extends Component
 			db.collection('Insta').add({
 			description: this.state.description,
 			imageURL: url,
-			comment :[]
+			username: auth.currentUser.displayName,
+			email : auth.currentUser.email
 
 		});
 			

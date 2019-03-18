@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -6,10 +7,40 @@ const auth = firebase.auth();
 
 class Navbar extends Component
 {
+	constructor(props)
+	{
+		super(props);
+		
+		
+		auth.onAuthStateChanged( user => {
+			if(user) { console.log(user);
+				
+				const loggedIn = document.querySelectorAll('.logged_in');
+				const loggedOut = document.querySelectorAll('.logged_out');
+				loggedIn.forEach(item => item.style.display = 'block');
+			loggedOut.forEach(item => item.style.display = 'none');
+			}
+			else
+			{
+				const loggedIn = document.querySelectorAll('.logged_in');
+				const loggedOut = document.querySelectorAll('.logged_out');
+				loggedIn.forEach(item => item.style.display = 'none');
+			loggedOut.forEach(item => item.style.display = 'block');
+			}
+			
+		
+	});
+	}
+	
+	
+	
+	
+	
 	logoutuser = (e) =>
 	{	
-	
+	    console.log("signout");
 		auth.signOut();
+		this.props.history.push('/login');
 		
 	}
 	
@@ -25,11 +56,11 @@ class Navbar extends Component
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/signup">Signup <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/login">Login</a>
-      <a class="nav-item nav-link" href="/home">Home</a>
-	  <a class="nav-item nav-link" href="/signup" onClick={this.logoutuser} >Logout</a>
+    <div class="navbar-nav"> 
+      <Link to="/signup" class="logged_out">Signup <span class="sr-only">(current)</span></Link>
+      <Link to="/login" class="logged_out" >Login</Link>
+      <Link to="/home" class="logged_in">Home</Link>
+	  <Link to="/signup" onClick={this.logoutuser} class="logged_in">Logout</Link>
 	  
       
     </div>
