@@ -11,8 +11,14 @@ class Navbar extends Component
 	{
 		super(props);
 		
+		this.state = 
+		{
+			name: ''
+		}
 		
 		auth.onAuthStateChanged( user => {
+			
+			
 			if(user) { console.log(user);
 				
 				const loggedIn = document.querySelectorAll('.logged_in');
@@ -28,8 +34,13 @@ class Navbar extends Component
 			loggedOut.forEach(item => item.style.display = 'block');
 			}
 			
+			
+			this.setState(
+			{name: user.displayName});
+			
 		
 	});
+	console.log(this.state.name);
 	}
 	
 	
@@ -40,7 +51,7 @@ class Navbar extends Component
 	{	
 	    console.log("signout");
 		auth.signOut();
-		this.props.history.push('/login');
+		
 		
 	}
 	
@@ -60,7 +71,9 @@ class Navbar extends Component
       <Link to="/signup" class="logged_out">Signup <span class="sr-only">(current)</span></Link>
       <Link to="/login" class="logged_out" >Login</Link>
       <Link to="/home" class="logged_in">Home</Link>
-	  <Link to="/signup" onClick={this.logoutuser} class="logged_in">Logout</Link>
+	  <Link to='/login' onClick={this.logoutuser} class="logged_in">Logout</Link>
+	   <Link to='/home' class="logged_in"> Logged in as <span id="nav"> {this.state.name}</span> </Link>
+	  
 	  
       
     </div>

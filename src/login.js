@@ -29,7 +29,12 @@ class Login extends Component
 	handlesubmit = (e) =>
 	{
 		e.preventDefault();
-		auth.signInWithEmailAndPassword(this.state.username, this.state.password).then(this.props.history.push('/home')).catch(err => { alert(err.message)});
+		auth.signInWithEmailAndPassword(this.state.username, this.state.password).catch(err => { alert(err.message)});
+		
+		auth.onAuthStateChanged(user => {
+			if(user)
+			{window.location = '/home' ;}
+		});
 		
 	}
 	

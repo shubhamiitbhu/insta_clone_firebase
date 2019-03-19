@@ -17,9 +17,9 @@ class App extends Component {
 	<BrowserRouter >
       <div>
 	  <Navbar />
-	  <Route path ='/signup' component={Signup} />
-	  <Route path ='/login' component={Login} />
-	  <Route path ='/home' component={Content} />
+	  <Route exact path ='/' component={Signup} />
+	  <Route exact path ='/login' component={Login} />
+	  <Route exact path ='/home' component={Content} />
       
 	  <br /> <br />
 	  

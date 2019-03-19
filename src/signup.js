@@ -18,7 +18,18 @@ class Signup extends Component
 		e.preventDefault();
 	    
 		//
-		firebase.auth().createUserWithEmailAndPassword(this.state.username, this.state.password);
+		firebase.auth().createUserWithEmailAndPassword(this.state.username, this.state.password).then(
+  (data) => {
+
+	const { user } = data
+	if (user) {
+      user.updateProfile({
+         displayName: this.state.displayname
+        
+      })
+	  window.location = '/home';
+    }
+})
       
     }
 

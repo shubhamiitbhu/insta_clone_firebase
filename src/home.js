@@ -73,8 +73,9 @@ class Home extends Component
 			description: this.state.description,
 			imageURL: url,
 			username: auth.currentUser.displayName,
-			email : auth.currentUser.email
-
+			email : auth.currentUser.email,
+			userid: auth.currentUser.uid,
+			Likes: 0
 		});
 			
 		}
