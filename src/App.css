@@ -37,6 +37,68 @@ a:hover
 	font-weight: bold;
 	
 }
+#file-form
+{
+	margin-left: 31%;
+	width:80%;
+	
+}
+
+#post
+{
+	position: absolute;
+	top: 82px;
+	left: 62%;
+	height: 28px;
+	color: white;
+	background-color: #d44638;
+}
+
+#signup-form
+{
+	margin-left: 38%;
+	width: 100px;
+}
+
+#description
+{
+	height: 70px;
+}
+
+
+#login-form
+{
+	margin-left: 38%;
+	margin-top: 10%;
+	margin-right: 38%;
+	background-color: white;
+	padding-top: 50px;
+	padding-top: 50px;
+	border-radius: 20px;
+	 box-shadow: 3px 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#username
+{
+	width: 100%;
+}
+#google
+{
+	width: 250px;
+	height: 50px;
+	color:White;
+	background-color: #d44638;
+	position: absolute;
+	top: 55%;
+	left: 41.5%;
+}
+#password
+{ width: 100%;}
+
+#btn
+{
+	margin-left: 38%;
+}
 
 #cross
 {
@@ -102,22 +164,27 @@ a:hover
 #like_comm
 {
 	margin-left: 31%;
+	margin-right: 31%;
 	background-color: white;
 	color: black;
 	padding: 10px;
 	
 }
 
+
+
 input
 {
 	 background-color: white;
     color: black;
+	
     outline: none;
     outline-style: none;
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: none;
+    border-bottom: 1px solid black;
+	border-radius: 3px;
     padding: 2px 10px;
 font-family: Arial, Helvetica, sans-serif;
 width: 47%;
@@ -153,7 +220,7 @@ button
 #header
 {
 	width:38%;
-	height:70px;
+	height:auto;
 	background-color: white;
 	margin-left: 31%;
 	border-top-right-radius: 40px;
@@ -168,6 +235,7 @@ button
 	margin-left: 3%;
 	word-wrap: break-word;
 	padding-bottom: 10px;
+	
 }
 
 #commentor
@@ -196,3 +264,106 @@ box-shadow: 3px 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 
+.liked
+{
+	
+	font-weight: bold;
+	background-color:#d44638;
+	border-color: #d44638;
+	color:white;
+}
+
+.download
+{
+	border: 1px solid transparent;
+	
+	
+	padding-right: 10px;
+	padding-left: 15px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-radius: 10px;
+	font-weight: bold;
+}
+.download:hover{
+cursor: pointer;
+}
+
+
+#like
+{
+	border: 1px solid transparent;
+	margin-right: 10%;
+	margin-left: 5%;
+	padding-right: 10px;
+	padding-left: 15px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-radius: 10px;
+	font-weight: bold;
+	
+}
+#like:hover
+{
+	cursor: pointer;
+	
+}
+#load {font-weight: bold;}
+#load:hover{cursor: pointer;}
+
+
+
+.dislike {
+	color: black;
+}
+
+
+#root
+{
+	overflow-x: hidden;
+}
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  height: auto;
+  overflow-y: auto;
+  max-height: 70%;
+  
+  overflow-x: auto;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}

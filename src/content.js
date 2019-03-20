@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import config from './config/fire.js';
 import Home from './home.js' ;
+import Navbar from './navbar.js' ;
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/storage' ;
+import 'firebase/auth' ;
 
 
 const db = firebase.firestore();
@@ -15,7 +17,13 @@ class Content extends Component
 	
 	constructor(props)
 	{
+		
+		
+		
 		super(props);
+		
+		
+		
 		auth.onAuthStateChanged(user =>{
 	
 
@@ -25,7 +33,8 @@ class Content extends Component
 {
 	let changes = snapshot.docChanges();
 	changes.forEach(doc=> {
-		if(doc.type=="added")
+		
+		if(doc.type== "added")
 		{
 		renderContent(doc.doc);
 		}
@@ -49,8 +58,26 @@ class Content extends Component
 	});
 
 
-		
+
+function renderModal(doc)
+{
+	var modal = document.getElementById("modal");
 	
+	
+	let name = document.createElement('div');
+	name.setAttribute("id" , doc.id);
+	let hr = document.createElement('hr');
+	name.textContent = doc.data().value + ' <' + doc.data().email + '>';
+	modal.appendChild(name);
+	modal.appendChild(hr);
+	
+}
+
+function clearModal()
+{
+	var modal = document.getElementById("modal");
+	modal.textContent = "";
+}
 
 
 
@@ -64,7 +91,7 @@ const content = document.querySelector('#main-content');
 	let header = document.createElement('div');
 	header.setAttribute("id", "header");
 	localdiv.setAttribute("id", doc.id);
-	
+	let linehr = document.createElement('hr');
 	localdiv.setAttribute("class", "localdiv" );
 	let displayname = document.createElement('span');
 	displayname.setAttribute("id", "displayname");
@@ -72,7 +99,7 @@ const content = document.querySelector('#main-content');
 	let emaildisplay = document.createElement('span');
 	emaildisplay.setAttribute("id", "emaildisplay");
 	emaildisplay.textContent = '<' + doc.data().email + '>  posted an update';
-    header.appendChild(displayname); header.appendChild(emaildisplay);
+    header.appendChild(displayname); header.appendChild(emaildisplay); 
 	let cross = document.createElement('span');
 	cross.setAttribute("id" ,"cross");
 
@@ -81,6 +108,7 @@ const content = document.querySelector('#main-content');
 	{
 		header.appendChild(cross);
 	}
+	header.appendChild(linehr);
 	
 	cross.addEventListener("click" , function()
 	{
@@ -97,19 +125,139 @@ const content = document.querySelector('#main-content');
 	description.setAttribute("id", "descript");
 	let like = document.createElement('span');
 	like.setAttribute("id", "like");
+	like.setAttribute("class", "dislike");
 	let load_comm = document.createElement('span');
-	load_comm.setAttribute("id", "load_comm");
+	load_comm.setAttribute("id", "load");
 	let download = document.createElement('span');
 	download.setAttribute("id", doc.id);
 	download.setAttribute("class" , "download");
-	like.textContent = "LIKE  ";
-	download.textContent="DOWNLOAD  ";
-	load_comm.textContent ="LOAD COMMENTS  ";
+	like.textContent = "Like  ";
+	
+	download.textContent="Download  ";
+	load_comm.textContent ="Load Comments  ";
 	let like_comm_div = document.createElement('div');
 	like_comm_div.setAttribute("id", "like_comm");
+	let viewliker = document.createElement('span');
+	viewliker.setAttribute("id", doc.id);
+	viewliker.setAttribute("class" ,"download");
+	viewliker.textContent ="View Likes";
+	let like_count = document.createElement('span');
+	like_count.setAttribute("id", "counter");
+	like_count.textContent = doc.data().Likes;
+	like_comm_div.appendChild(like_count);
 	like_comm_div.appendChild(like);
+	like_comm_div.appendChild(viewliker);
 	like_comm_div.appendChild(load_comm);
 	like_comm_div.appendChild(download);
+	
+	
+	//
+	
+	
+	
+	
+	//creating modal
+	
+	var modal = document.getElementById("myModal");
+	viewliker.addEventListener("click", function(){
+		db.collection('Post').doc(viewliker.id).collection('Users').get().then( (snapshot) =>
+		{   if(doc.length !=0) 
+		snapshot.forEach( doc => { renderModal(doc) }) 
+		
+		})
+		
+		
+		
+		modal.style.display = 'block'});
+	var clo = document.getElementById("close");
+	clo.addEventListener("click", function(){
+		clearModal();
+		
+		
+		modal.style.display = 'none'});
+	
+	window.onclick = function(event) {
+				if (event.target == modal) {
+					clearModal();
+					modal.style.display = "none";
+					}
+				}
+	
+	//
+	var ref = db.collection('User').doc(auth.currentUser.uid).collection('Likes').doc(doc.id);
+	
+	like.addEventListener("click", function() {
+		
+		//
+		var likeref = db.collection("Insta").doc(doc.id);
+		
+		ref.get().then(function(doc) {
+		
+		if(doc.exists)
+	{    
+		db.collection('User').doc(auth.currentUser.uid).collection('Likes').doc(doc.id).delete();
+		db.collection('Post').doc(doc.id).collection('Users').doc(auth.currentUser.uid).delete();
+		
+		
+		like.setAttribute("class", "dislike");
+		
+		var likeref = db.collection("Insta").doc(doc.id);
+		return db.runTransaction(function(transaction) { return transaction.get(likeref).then(function(likedocs){ var newlike = likedocs.data().Likes -1; transaction.update(likeref, {Likes: newlike})})})
+		
+		
+	}
+	
+	else{
+		db.collection('User').doc(auth.currentUser.uid).collection('Likes').doc(doc.id).set({value : true});
+		db.collection('Post').doc(doc.id).collection('Users').doc(auth.currentUser.uid).set({value : auth.currentUser.displayName, email:auth.currentUser.email });
+		like.setAttribute("class", "liked");
+		
+		
+		//
+		var likeref = db.collection("Insta").doc(doc.id);
+		return db.runTransaction(function(transaction) { return transaction.get(likeref).then(function(likedocs){ var newlike = likedocs.data().Likes +1; transaction.update(likeref, {Likes: newlike})})})
+		
+		
+		
+		
+		//
+		
+		
+	}
+		
+	}).catch(function(error) {
+    console.log("Error getting document:", error)});
+	});
+	
+	//
+	ref.get().then(function(doc) {
+		if(doc.exists)
+		{
+			like.setAttribute("class", "liked");
+		}
+		
+		
+	});
+	
+	
+	
+		//
+		
+		
+		
+		
+	
+	
+	
+	
+	
+
+	
+     
+	
+	
+	
+	
 	description.textContent = doc.data().description;
 	header.appendChild(description);
 	
@@ -127,17 +275,12 @@ const content = document.querySelector('#main-content');
 	let input = document.createElement('input');
 	input.setAttribute("type", "text");
 	input.setAttribute("id", "ic");
-	input.setAttribute("placeholder", "write your thoughts here...");
-	like.addEventListener("click", function(e) {e.preventDefault(); if(like.textContent== "LIKE  ") {like.textContent = "UNLIKE  "; 
-	var postRef = db.collection('Insta');
-	
-	function updateLike(doc)
-	{
-		return db.ref('Insta/{$doc}/Likes').transaction(Likes => Likes++);
-	}
+	input.setAttribute("placeholder", "share your thoughts here...");
 	
 	
-	} else {like.textContent= "LIKE  "};} );
+	
+	
+	
 	
 	form.addEventListener("submit", function(e) { e.preventDefault(); var input_string= e.target.ic.value ; console.log(input_string); e.target.ic.value=""; 
 		if(!input_string) { alert("Please add text before publishing your comment"); }
@@ -149,7 +292,7 @@ const content = document.querySelector('#main-content');
 				commented_by: auth.currentUser.displayName
 		}
 		)}
-		if(comment_section.style.display = 'none') {load_comm.textContent = "HIDE COMMENTS  "; comment_section.style.display = 'block'}
+		if(comment_section.style.display = 'none') {load_comm.textContent = "Hide Comments"; comment_section.style.display = 'block'}
 		});
 	
 		
@@ -184,8 +327,8 @@ const content = document.querySelector('#main-content');
 	
 	
 	comment_section.style.display = 'none';
-	load_comm.addEventListener("click", function() {if(comment_section.style.display == 'none') {comment_section.style.display = 'block'; load_comm.textContent = "HIDE COMMENTS  "}
-	else if(comment_section.style.display =='block') {comment_section.style.display = 'none'; load_comm.textContent = "LOAD COMMENTS"; } });
+	load_comm.addEventListener("click", function() {if(comment_section.style.display == 'none') {comment_section.style.display = 'block'; load_comm.textContent = "Hide Comments"}
+	else if(comment_section.style.display =='block') {comment_section.style.display = 'none'; load_comm.textContent = "Load Comments"; } });
 	localdiv.appendChild(header);
 	
 	localdiv.appendChild(img);
@@ -197,10 +340,15 @@ const content = document.querySelector('#main-content');
 	localdiv.appendChild(line_break);
 	
 	
+	
 	content.appendChild(localdiv);
     
 	
 }
+
+
+
+
 
 	}
 	
@@ -208,11 +356,26 @@ const content = document.querySelector('#main-content');
 	{
 		return(
 			<div id="loggedIn">
-			<Home />
+			<Home /> <br /> <br />
 			 
 			  
 			  <div id="main-content" >
 				
+			  
+			  
+			  <div id="myModal" class="modal">
+
+								
+					<div class="modal-content">
+						<span class="close" id="close">&times;</span>
+						<p id="modal"> 
+						
+						
+						
+						</p>
+						</div>
+
+					</div>
 			  
 			  
 

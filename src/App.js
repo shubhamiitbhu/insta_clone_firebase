@@ -19,6 +19,7 @@ class App extends Component {
 	  <Navbar />
 	  <Route exact path ='/' component={Signup} />
 	  <Route exact path ='/login' component={Login} />
+	  <br />
 	  <Route exact path ='/home' component={Content} />
       
 	  <br /> <br />

@@ -47,6 +47,28 @@ class Signup extends Component
 		)
 		
 	}
+	googlesign =(e) =>
+	{
+		var provider = new firebase.auth.GoogleAuthProvider();
+		
+		firebase.auth().signInWithPopup(provider).then(function(result) {
+ 
+  var token = result.credential.accessToken;
+  
+  var user = result.user;
+ 
+}).catch(function(error) {
+ 
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  
+  var email = error.email;
+  
+  var credential = error.credential;
+ 
+});
+	}
+	
 	
 	
 	
@@ -56,11 +78,12 @@ class Signup extends Component
 
 			  <div id="modal-signup">
 			  <form id="signup-form" onSubmit = {this.handlesubmit} >
-			  <input type="text" id="username" onChange = {this.handlechange} /> <br />
-			  <input type="text" id="displayname" onChange = {this.handlechange} /> <br />
+			  <input type="text" id="username" onChange = {this.handlechange} /> <br /> <br />
+			  <input type="text" id="display" onChange = {this.handlechange} /> <br /> <br />
 			  <input type="password" id="password" onChange={this.handlechange} /> <br />
 			  <button type="submit"> Signup</button>
 			  </form>
+			   <button id="google" onClick={this.googlesign} > <strong>Signup with Google</strong></button>
 			  </div>
 
 

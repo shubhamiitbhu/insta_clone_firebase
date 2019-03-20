@@ -38,34 +38,12 @@ class Home extends Component
 		
 		
 		var file = e.target.file.files[0];
-		
-		
+		var filename = this.state.filename;
+		if(filename)
+		{
 	
 		var storeRef = storage.ref('Insta/').child(file.name);
-		storeRef.put(file);
-		
-	}
-	
-	
-	deschange =(e) =>
-	{
-		this.setState(
-		{
-			description: e.target.value
-		}
-		)
-	}
-	
-	
-	
-	postform = (e) =>
-	{
-		
-		e.preventDefault();
-		
-		
-		
-		console.log(this.state.filename);
+		storeRef.put(file).then(
 		storage.ref('Insta/' + this.state.filename).getDownloadURL().then((url)=>{
 			
 			
@@ -83,7 +61,25 @@ class Home extends Component
 		
 		)
 		
+		
+		
+		)} else {alert("No files added!"); }
+		
 	}
+	
+	
+	deschange =(e) =>
+	{
+		this.setState(
+		{
+			description: e.target.value
+		}
+		)
+	}
+	
+	
+	
+	
 	
 	filechange = (e) =>
 	{
@@ -94,6 +90,10 @@ class Home extends Component
 	
 	)
 	console.log(this.state.filename);
+	
+	 
+	
+	
 	}
 		
 	
@@ -109,13 +109,13 @@ class Home extends Component
 		<form id="file-form" onSubmit = {this.submitFile} >
 		<input type="file" id="file"  onChange= {this.filechange}/>
 		
-		<button type="submit"> Upload </button>
-		</form>
 		
 		
-		<form id="post-form" onSubmit={this.postform}>
-		<input type="text" id="description"  onChange={this.deschange} /> <br />
-		<button type="submit" > POST! </button>
+		
+		<br />
+		
+		<input type="text" id="description" placeholder = "Add a description about your post! (Optional)"  onChange={this.deschange} /> <br />
+		<button type="submit" id="post" > POST! </button>
 		</form>
 		
 		</div>

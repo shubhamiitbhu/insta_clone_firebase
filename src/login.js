@@ -47,6 +47,28 @@ class Login extends Component
 		)
 	}
 	
+	googlesign =(e) =>
+	{
+		var provider = new firebase.auth.GoogleAuthProvider();
+		
+		firebase.auth().signInWithPopup(provider).then(function(result) {
+ 
+  var token = result.credential.accessToken;
+  
+  var user = result.user;
+ 
+}).catch(function(error) {
+ 
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  
+  var email = error.email;
+  
+  var credential = error.credential;
+ 
+});
+	}
+	
 	
 	
 	render()
@@ -55,13 +77,15 @@ class Login extends Component
 
 			  <div id="modal-login">
 			  <form id="login-form" onSubmit = {this.handlesubmit} >
-			  <input type="text" id="username" onChange= {this.changeuser} /> <br />
-			  
-			  <input type="text" id="password" onChange={this.changeuser} /> <br />
-			  <button type="submit" > Login</button>
+			  <input type="text" id="username" placeholder = "Enter your email here" onChange= {this.changeuser} /> <br />
+			  <br />
+			  <input type="text" id="password" placeholder= "Enter your password here" onChange={this.changeuser} /> <br />
+			  <span id="btn"><button type="submit" > Login</button></span><hr /> <br />
+			     <br />
+				 <br /> <br /> <br /> 
 			  </form>
-			  
-			  
+			  <button id="google" onClick={this.googlesign} > <strong>Signin with Google</strong></button>
+			 
 			  
 			  </div>
 
