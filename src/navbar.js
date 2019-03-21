@@ -25,6 +25,11 @@ class Navbar extends Component
 				const loggedOut = document.querySelectorAll('.logged_out');
 				loggedIn.forEach(item => item.style.display = 'block');
 			loggedOut.forEach(item => item.style.display = 'none');
+			
+			this.setState(
+			{name: user.displayName});
+			
+			
 			}
 			else
 			{
@@ -35,12 +40,11 @@ class Navbar extends Component
 			}
 			
 			
-			this.setState(
-			{name: user.displayName});
+			
 			
 		
 	});
-	console.log(this.state.name);
+	
 	}
 	
 	
@@ -72,7 +76,7 @@ class Navbar extends Component
       <Link to="/login" class="logged_out" >Login</Link>
       <Link to="/home" class="logged_in">Home</Link>
 	  <Link to='/login' onClick={this.logoutuser} class="logged_in">Logout</Link>
-	   <Link to='/home' class="logged_in"> Logged in as <span id="nav"> {this.state.name}</span> </Link>
+	   <Link to='/home' class="logged_in"> <span id="nav"> {this.state.name}</span> </Link>
 	  
 	  
       

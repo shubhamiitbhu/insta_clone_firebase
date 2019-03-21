@@ -5,14 +5,16 @@ import auth from './config/fire.js';
 
 class Signup extends Component
 {
-
-	state= 
+constructor(props)
+{
+	super(props);
+	this.state= 
 	{
 		username: '',
 		display: '',
 		password: ''
 	}
-	
+}	
 	handlesubmit = (e) =>
 	{
 		e.preventDefault();
