@@ -8,6 +8,9 @@ const db = firebase.firestore();
 const storage = firebase.storage();
 const auth = firebase.auth();
 
+
+	
+	
 class Login extends Component
 {
 	
@@ -19,6 +22,18 @@ class Login extends Component
 		username: '',
 		password: '',
 	}
+	
+	auth.onAuthStateChanged (user => {
+		
+		if(user)
+		{
+			this.props.history.push('/home');
+		}
+		
+		
+	})
+	
+	
 
 }
 
@@ -31,10 +46,7 @@ class Login extends Component
 		e.preventDefault();
 		auth.signInWithEmailAndPassword(this.state.username, this.state.password).catch(err => { alert(err.message)});
 		
-		auth.onAuthStateChanged(user => {
-			if(user)
-			{window.location = '/home' ;}
-		});
+		
 		
 	}
 	
@@ -57,7 +69,9 @@ class Login extends Component
   
   var user = result.user;
  
-}).catch(function(error) {
+}
+
+).catch(function(error) {
  
   var errorCode = error.code;
   var errorMessage = error.message;
@@ -67,7 +81,7 @@ class Login extends Component
   var credential = error.credential;
  
 });
-	}
+	 }
 	
 	
 	

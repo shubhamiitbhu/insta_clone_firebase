@@ -105,7 +105,7 @@ class Home extends Component
 	render()
 	{
 		return(
-		<div id="form-modal">
+		<div id="loggedIn">
 		<form id="file-form" onSubmit = {this.submitFile} >
 		<input type="file" id="file"  onChange= {this.filechange}/>
 		

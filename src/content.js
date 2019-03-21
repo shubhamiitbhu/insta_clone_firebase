@@ -33,7 +33,7 @@ class Content extends Component
 {
 	let changes = snapshot.docChanges();
 	changes.forEach(doc=> {
-		
+		console.log(doc);
 		if(doc.type== "added")
 		{
 		renderContent(doc.doc);
@@ -43,6 +43,10 @@ class Content extends Component
 			let local = document.querySelector('#' + doc.doc.id);
 			document.querySelector('#main-content').removeChild(local);
 		}
+		else if(doc.type == "modified")
+		{
+			renderLike(doc.doc);
+		}
 		
 	})
 	
@@ -51,11 +55,24 @@ class Content extends Component
  
 
 	}
+	else
+	{
+		const loggedIn = document.querySelectorAll('.loggedIn');
+		loggedIn.forEach(item => item.style.display = 'none');
+	}
 	
 
 
 		
 	});
+	
+	
+function renderLike(doc)
+{
+	let counter = document.getElementsByClassName(doc.id)[0];
+	counter.textContent = doc.data().Likes;
+	
+}
 
 
 
@@ -106,7 +123,7 @@ const content = document.querySelector('#main-content');
 	cross.textContent = "X";
 	if(doc.data().userid == auth.currentUser.uid)
 	{
-		header.appendChild(cross);
+		localdiv.appendChild(cross);
 	}
 	header.appendChild(linehr);
 	
@@ -119,6 +136,7 @@ const content = document.querySelector('#main-content');
 		}
 	}
 	);
+	
 	
 	
 	let description = document.createElement('div');
@@ -139,16 +157,54 @@ const content = document.querySelector('#main-content');
 	like_comm_div.setAttribute("id", "like_comm");
 	let viewliker = document.createElement('span');
 	viewliker.setAttribute("id", doc.id);
-	viewliker.setAttribute("class" ,"download");
+	viewliker.setAttribute("class" ,"liker");
 	viewliker.textContent ="View Likes";
 	let like_count = document.createElement('span');
 	like_count.setAttribute("id", "counter");
+	like_count.setAttribute("class", doc.id);
+	
 	like_count.textContent = doc.data().Likes;
+	var counter = doc.data().Likes;
 	like_comm_div.appendChild(like_count);
 	like_comm_div.appendChild(like);
 	like_comm_div.appendChild(viewliker);
 	like_comm_div.appendChild(load_comm);
 	like_comm_div.appendChild(download);
+	
+	
+	download.addEventListener("click", function() {
+		
+		var starsRef = storage.refFromURL(doc.data().imageURL);
+
+// Get the download URL
+starsRef.getDownloadURL().then(function(url) {
+  // Insert url into an <img> tag to "download"
+}).catch(function(error) {
+
+  
+  switch (error.code) {
+    case 'storage/object-not-found':
+      // File doesn't exist
+      break;
+
+    case 'storage/unauthorized':
+      // User doesn't have permission to access the object
+      break;
+
+    case 'storage/canceled':
+      // User canceled the upload
+      break;
+
+ 
+
+    case 'storage/unknown':
+      // Unknown error occurred, inspect the server response
+      break;
+  }
+});
+		//
+		
+	});
 	
 	
 	//
@@ -212,7 +268,6 @@ const content = document.querySelector('#main-content');
 		db.collection('Post').doc(doc.id).collection('Users').doc(auth.currentUser.uid).set({value : auth.currentUser.displayName, email:auth.currentUser.email });
 		like.setAttribute("class", "liked");
 		
-		
 		//
 		var likeref = db.collection("Insta").doc(doc.id);
 		return db.runTransaction(function(transaction) { return transaction.get(likeref).then(function(likedocs){ var newlike = likedocs.data().Likes +1; transaction.update(likeref, {Likes: newlike})})})
@@ -238,24 +293,6 @@ const content = document.querySelector('#main-content');
 		
 		
 	});
-	
-	
-	
-		//
-		
-		
-		
-		
-	
-	
-	
-	
-	
-
-	
-     
-	
-	
 	
 	
 	description.textContent = doc.data().description;
@@ -289,7 +326,8 @@ const content = document.querySelector('#main-content');
 		db.collection('Insta').doc(doc.id).collection('Comments').add(
 		{
 				comments: input_string,
-				commented_by: auth.currentUser.displayName
+				commented_by: auth.currentUser.displayName,
+				
 		}
 		)}
 		if(comment_section.style.display = 'none') {load_comm.textContent = "Hide Comments"; comment_section.style.display = 'block'}
@@ -316,9 +354,11 @@ const content = document.querySelector('#main-content');
 		let changes = snapshots.docChanges();
 		
 		changes.forEach(doc=> {
+			console.log(doc.type);
 			if(doc.type=="added")
 			{
-			comment_section.innerHTML += '<div id="text_comm">' + '<div > <span id="commentor">' + doc.doc.data().commented_by + '</span> wrote</div> ' + '<span id="comments">'+ doc.doc.data().comments + '</span></div> <br />';
+				
+			comment_section.innerHTML += '<div id="text_comm">' + '<div > <span id="commentor">' + doc.doc.data().commented_by + '</span>'   +'</div> ' + '<span id="comments">'+ doc.doc.data().comments + '</span></div> <br />';
 			}
 		})
 	});
@@ -355,7 +395,7 @@ const content = document.querySelector('#main-content');
 	render()
 	{
 		return(
-			<div id="loggedIn">
+			<div className="loggedIn">
 			<Home /> <br /> <br />
 			 
 			  

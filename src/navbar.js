@@ -50,7 +50,7 @@ class Navbar extends Component
 	logoutuser = (e) =>
 	{	
 	    console.log("signout");
-		auth.signOut();
+		auth.signOut().then(this.props.history.push('login'))
 		
 		
 	}
