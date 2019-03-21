@@ -14,6 +14,20 @@ constructor(props)
 		display: '',
 		password: ''
 	}
+	
+	
+	firebase.auth().onAuthStateChanged(user => {
+		if(user != null)
+		{
+			window.location('/home');
+		}
+		
+	})
+	
+	
+	
+	
+	
 }	
 	handlesubmit = (e) =>
 	{
@@ -50,7 +64,7 @@ constructor(props)
 		
 	}
 	
-	googlesign =(e) => { var provider = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(provider).then(function(result) { var token = result.credential.accessToken; var user = result.user; }).catch(function(error) { var errorCode = error.code; var errorMessage = error.message; var email = error.email; var credential = error.credential; }); }
+	googlesign =(e) => { var provider = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(provider).then(function(result) { var token = result.credential.accessToken; var user = result.user; }).catch(function(error) { var errorCode = error.code; var errorMessage = error.message; var email = error.email; var credential = error.credential; }) }
 	
 	
 	
