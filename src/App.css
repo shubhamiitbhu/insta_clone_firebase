@@ -19,6 +19,13 @@ img
  
   box-shadow: 3px 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+#uploader
+{
+	width: 100%;
+	-webkit-appearance : none;
+	appearance: none;
+}
 a
 {
 	color: black;
@@ -130,8 +137,7 @@ margin-right:38%;
 {
 	
 	color: white;
-	margin-left: 67%;
-	margin-top: 100px;
+	
 	
 	font-weight: bold;
 	background-color: #e55032;

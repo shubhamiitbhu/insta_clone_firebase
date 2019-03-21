@@ -68,7 +68,7 @@ class Navbar extends Component
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav"> 
-      <Link to="/signup" class="logged_out">Signup <span class="sr-only">(current)</span></Link>
+      <Link to="/" class="logged_out">Signup <span class="sr-only">(current)</span></Link>
       <Link to="/login" class="logged_out" >Login</Link>
       <Link to="/home" class="logged_in">Home</Link>
 	  <Link to='/login' onClick={this.logoutuser} class="logged_in">Logout</Link>

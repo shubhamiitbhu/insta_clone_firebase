@@ -123,7 +123,7 @@ const content = document.querySelector('#main-content');
 	cross.textContent = "X";
 	if(doc.data().userid == auth.currentUser.uid)
 	{
-		localdiv.appendChild(cross);
+		header.appendChild(cross);
 	}
 	header.appendChild(linehr);
 	

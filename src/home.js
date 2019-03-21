@@ -36,14 +36,16 @@ class Home extends Component
 		e.preventDefault();
 		
 		
-		
+		var f = document.getElementById("file")
 		var file = e.target.file.files[0];
 		var filename = this.state.filename;
 		if(filename)
 		{
-	
+		var uploader = document.getElementById("uploader");
+		
 		var storeRef = storage.ref('Insta/').child(file.name);
-		storeRef.put(file).then(
+		var task = storeRef.put(file);
+		task.then(
 		storage.ref('Insta/' + this.state.filename).getDownloadURL().then((url)=>{
 			
 			
@@ -56,14 +58,26 @@ class Home extends Component
 			Likes: 0
 		});
 			
-		}
-		
-		
-		)
+		}))
 		
 		
 		
-		)} else {alert("No files added!"); }
+		
+		
+		
+		
+		
+		task.on('state_changed', function progress(snapshot){
+			var percentage = (snapshot.bytesTransferred / snapshot.totalBytes)*100;
+			uploader.value = percentage;
+			
+		})
+		
+		
+		
+		} else {alert("No files added!"); }
+		
+		
 		
 	}
 	
@@ -87,10 +101,12 @@ class Home extends Component
 		{
 		filename: e.target.files[0].name,
 		}
+		
 	
 	)
 	console.log(this.state.filename);
-	
+	var uploader = document.getElementById("uploader");
+		uploader.value = 0;
 	 
 	
 	
@@ -108,7 +124,7 @@ class Home extends Component
 		<div id="loggedIn">
 		<form id="file-form" onSubmit = {this.submitFile} >
 		<input type="file" id="file"  onChange= {this.filechange}/>
-		
+		<progress value="0" max="100" id="uploader" > 0%  </progress>
 		
 		
 		
