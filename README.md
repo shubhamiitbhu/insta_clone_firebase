@@ -16,8 +16,11 @@ In this app a user can share his photo, see other users photographs, like, comme
 <h3> The firebase deployment of the app can be found <a href="https://insta-clone-8b097.firebaseapp.com/login">here </a></h3>
 
 
-<h2> Images </h2>
-![img1](https://user-images.githubusercontent.com/28799334/54821766-2e463000-4cc9-11e9-96d3-9c3b98b0ec9d.PNG) 
-![img2](https://user-images.githubusercontent.com/28799334/54821776-34d4a780-4cc9-11e9-9a02-c86bcd4d3cfd.PNG) 
-![img4](https://user-images.githubusercontent.com/28799334/54821777-34d4a780-4cc9-11e9-829a-8742bdeacee6.PNG)
+<h2> Images </h2> <br />
+
+![img1](https://user-images.githubusercontent.com/28799334/54821957-b298b300-4cc9-11e9-9ef9-b9ea0c1d152e.PNG)
+![img2](https://user-images.githubusercontent.com/28799334/54821959-b3314980-4cc9-11e9-847a-814ee5aa5160.PNG)
+![img4](https://user-images.githubusercontent.com/28799334/54821961-b3314980-4cc9-11e9-969b-9e8dc5fb3d42.PNG)
+
+
 
