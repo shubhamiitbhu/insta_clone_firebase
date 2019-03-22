@@ -17,7 +17,7 @@ In this app a user can share his photo, see other users photographs, like, comme
 
 
 <h2> Images </h2>
-![img1](https://user-images.githubusercontent.com/28799334/54821766-2e463000-4cc9-11e9-96d3-9c3b98b0ec9d.PNG) <br />
-![img2](https://user-images.githubusercontent.com/28799334/54821776-34d4a780-4cc9-11e9-9a02-c86bcd4d3cfd.PNG) <br />
+![img1](https://user-images.githubusercontent.com/28799334/54821766-2e463000-4cc9-11e9-96d3-9c3b98b0ec9d.PNG) 
+![img2](https://user-images.githubusercontent.com/28799334/54821776-34d4a780-4cc9-11e9-9a02-c86bcd4d3cfd.PNG) 
 ![img4](https://user-images.githubusercontent.com/28799334/54821777-34d4a780-4cc9-11e9-829a-8742bdeacee6.PNG)
 
